@@ -68,97 +68,34 @@ let useFreeTube = document.getElementById("use-freetube");
 let nitterRandomPool = document.getElementById("nitter-random-pool");
 let invidiousRandomPool = document.getElementById("invidious-random-pool");
 let bibliogramRandomPool = document.getElementById("bibliogram-random-pool");
-let exceptions;
 
 window.browser = window.browser || window.chrome;
 
-function prependExceptionsItem(item, index) {
-  const li = document.createElement("li");
-  li.appendChild(document.createTextNode(item.toString()));
-  const button = document.createElement("button");
-  li.appendChild(button);
-  document.getElementById("exceptions-items").prepend(li);
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 512 512'>
-      <line x1='368' y1='368' x2='144' y2='144'
-        style='fill:none;stroke:#FFF;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px' />
-      <line x1='368' y1='144' x2='144' y2='368'
-        style='fill:none;stroke:#FFF;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px' />
-    </svg>`;
-  button.appendChild(
-    domparser.parseFromString(svg, "image/svg+xml").documentElement
-  );
-  button.addEventListener("click", () => {
-    exceptions.splice(index, 1);
-    browser.storage.sync.set({
-      exceptions: exceptions,
-    });
-    li.remove();
-  });
-}
-
 browser.storage.sync.get(
   [
-    "nitterInstance",
     "invidiousInstance",
-    "bibliogramInstance",
-    "osmInstance",
-    "redditInstance",
-    "searchEngineInstance",
-    "simplyTranslateInstance",
-    "wikipediaInstance",
-    "disableNitter",
     "disableInvidious",
-    "disableBibliogram",
-    "disableOsm",
-    "disableReddit",
-    "disableSearchEngine",
-    "disableSimplyTranslate",
-    "disableWikipedia",
     "alwaysProxy",
     "onlyEmbeddedVideo",
     "videoQuality",
-    "removeTwitterSW",
     "invidiousDarkMode",
     "persistInvidiousPrefs",
     "invidiousVolume",
     "invidiousPlayerStyle",
     "invidiousSubtitles",
     "invidiousAutoplay",
-    "exceptions",
     "theme",
-    "useFreeTube",
-    "nitterRandomPool",
-    "invidiousRandomPool",
-    "bibliogramRandomPool",
   ],
   (result) => {
     theme.value = result.theme || "";
     if (result.theme) document.body.classList.add(result.theme);
-    nitterInstance.value = result.nitterInstance || "";
     invidiousInstance.value = result.invidiousInstance || "";
-    bibliogramInstance.value = result.bibliogramInstance || "";
-    osmInstance.value = result.osmInstance || "";
-    redditInstance.value = result.redditInstance || "";
-    searchEngineInstance.value =
-      (result.searchEngineInstance && result.searchEngineInstance.link) || "";
-    simplyTranslateInstance.value = result.simplyTranslateInstance || "";
-    wikipediaInstance.value = result.wikipediaInstance || "";
-    disableNitter.checked = !result.disableNitter;
     disableInvidious.checked = !result.disableInvidious;
-    disableBibliogram.checked = !result.disableBibliogram;
-    disableOsm.checked = !result.disableOsm;
-    disableReddit.checked = !result.disableReddit;
-    disableSearchEngine.checked = !result.disableSearchEngine;
-    disableSimplyTranslate.checked = !result.disableSimplyTranslate;
-    disableWikipedia.checked = !result.disableWikipedia;
     alwaysProxy.checked = result.alwaysProxy;
     onlyEmbeddedVideo.checked = result.onlyEmbeddedVideo;
     videoQuality.value = result.videoQuality || "";
-    removeTwitterSW.checked = !result.removeTwitterSW;
     invidiousDarkMode.checked = result.invidiousDarkMode;
     persistInvidiousPrefs.checked = result.persistInvidiousPrefs;
-    exceptions = result.exceptions || [];
-    exceptions.forEach(prependExceptionsItem);
     invidiousVolume.value = result.invidiousVolume;
     document.querySelector("#volume-value").textContent = result.invidiousVolume
       ? `${result.invidiousVolume}%`
@@ -166,15 +103,6 @@ browser.storage.sync.get(
     invidiousPlayerStyle.value = result.invidiousPlayerStyle || "";
     invidiousSubtitles.value = result.invidiousSubtitles || "";
     invidiousAutoplay.checked = result.invidiousAutoplay;
-    useFreeTube.checked = result.useFreeTube;
-    nitterRandomPool.value =
-      result.nitterRandomPool || commonHelper.filterInstances(nitterInstances);
-    invidiousRandomPool.value =
-      result.invidiousRandomPool ||
-      commonHelper.filterInstances(invidiousInstances);
-    bibliogramRandomPool.value =
-      result.bibliogramRandomPool ||
-      commonHelper.filterInstances(bibliogramInstances);
   }
 );
 
@@ -198,39 +126,8 @@ document
 document
   .getElementById("advanced-tab")
   .addEventListener("click", openTab.bind(null, "advanced"));
-document
-  .getElementById("exceptions-tab")
-  .addEventListener("click", openTab.bind(null, "exceptions"));
 
 document.getElementById("general-tab").click();
-
-function addToExceptions() {
-  const input = document.getElementById("new-exceptions-item");
-  const type = document.querySelector('input[name="type"]:checked').value;
-  if (input.value) {
-    try {
-      let value = input.value;
-      new RegExp(input.value);
-      if (type === "URL") {
-        value = value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-      }
-      exceptions.push(value);
-      browser.storage.sync.set({
-        exceptions: exceptions,
-      });
-      prependExceptionsItem(value, exceptions.indexOf(value));
-      input.value = "";
-    } catch (error) {
-      input.setCustomValidity("Invalid RegExp");
-    }
-  } else {
-    input.setCustomValidity("Invalid RegExp");
-  }
-}
-
-document
-  .getElementById("add-to-exceptions")
-  .addEventListener("click", addToExceptions);
 
 function debounce(func, wait, immediate) {
   let timeout;
@@ -266,15 +163,6 @@ function parseURL(urlString) {
   }
 }
 
-const nitterInstanceChange = debounce(() => {
-  if (nitterInstance.checkValidity()) {
-    browser.storage.sync.set({
-      nitterInstance: parseURL(nitterInstance.value),
-    });
-  }
-}, 500);
-nitterInstance.addEventListener("input", nitterInstanceChange);
-
 const invidiousInstanceChange = debounce(() => {
   if (invidiousInstance.checkValidity()) {
     browser.storage.sync.set({
@@ -284,101 +172,8 @@ const invidiousInstanceChange = debounce(() => {
 }, 500);
 invidiousInstance.addEventListener("input", invidiousInstanceChange);
 
-const bibliogramInstanceChange = debounce(() => {
-  if (bibliogramInstance.checkValidity()) {
-    browser.storage.sync.set({
-      bibliogramInstance: parseURL(bibliogramInstance.value),
-    });
-  }
-}, 500);
-bibliogramInstance.addEventListener("input", bibliogramInstanceChange);
-
-const osmInstanceChange = debounce(() => {
-  if (osmInstance.checkValidity()) {
-    browser.storage.sync.set({
-      osmInstance: parseURL(osmInstance.value),
-    });
-  }
-}, 500);
-osmInstance.addEventListener("input", osmInstanceChange);
-
-const redditInstanceChange = debounce(() => {
-  if (redditInstance.checkValidity()) {
-    browser.storage.sync.set({
-      redditInstance: parseURL(redditInstance.value),
-    });
-  }
-}, 500);
-redditInstance.addEventListener("input", redditInstanceChange);
-
-const searchEngineInstanceChange = debounce(() => {
-  const instance = searchEngineInstances.find(
-    (instance) => instance.link === searchEngineInstance.value
-  );
-  if (instance || !searchEngineInstance.value) {
-    browser.storage.sync.set({
-      searchEngineInstance: instance || searchEngineInstance.value,
-    });
-  } else {
-    searchEngineInstance.setCustomValidity("Must be an instance from the list");
-  }
-}, 500);
-searchEngineInstance.addEventListener("input", searchEngineInstanceChange);
-
-const simplyTranslateInstanceChange = debounce(() => {
-  if (simplyTranslateInstance.checkValidity()) {
-    browser.storage.sync.set({
-      simplyTranslateInstance: parseURL(simplyTranslateInstance.value),
-    });
-  }
-}, 500);
-simplyTranslateInstance.addEventListener(
-  "input",
-  simplyTranslateInstanceChange
-);
-
-const wikipediaInstanceChange = debounce(() => {
-  if (wikipediaInstance.checkValidity()) {
-    browser.storage.sync.set({
-      wikipediaInstance: parseURL(wikipediaInstance.value),
-    });
-  }
-}, 500);
-wikipediaInstance.addEventListener(
-  "input",
-  wikipediaInstanceChange
-);
-
-disableNitter.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableNitter: !event.target.checked });
-});
-
 disableInvidious.addEventListener("change", (event) => {
   browser.storage.sync.set({ disableInvidious: !event.target.checked });
-});
-
-disableBibliogram.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableBibliogram: !event.target.checked });
-});
-
-disableOsm.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableOsm: !event.target.checked });
-});
-
-disableReddit.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableReddit: !event.target.checked });
-});
-
-disableSearchEngine.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableSearchEngine: !event.target.checked });
-});
-
-disableSimplyTranslate.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableSimplyTranslate: !event.target.checked });
-});
-
-disableWikipedia.addEventListener("change", (event) => {
-  browser.storage.sync.set({ disableWikipedia: !event.target.checked });
 });
 
 alwaysProxy.addEventListener("change", (event) => {
@@ -395,20 +190,12 @@ videoQuality.addEventListener("change", (event) => {
   });
 });
 
-removeTwitterSW.addEventListener("change", (event) => {
-  browser.storage.sync.set({ removeTwitterSW: !event.target.checked });
-});
-
 invidiousDarkMode.addEventListener("change", (event) => {
   browser.storage.sync.set({ invidiousDarkMode: event.target.checked });
 });
 
 persistInvidiousPrefs.addEventListener("change", (event) => {
   browser.storage.sync.set({ persistInvidiousPrefs: event.target.checked });
-});
-
-useFreeTube.addEventListener("change", (event) => {
-  browser.storage.sync.set({ useFreeTube: event.target.checked });
 });
 
 const invidiousVolumeChange = debounce(() => {
@@ -436,23 +223,6 @@ invidiousSubtitles.addEventListener("input", invidiousSubtitlesChange);
 invidiousAutoplay.addEventListener("change", (event) => {
   browser.storage.sync.set({ invidiousAutoplay: event.target.checked });
 });
-
-const nitterRandomPoolChange = debounce(() => {
-  browser.storage.sync.set({ nitterRandomPool: nitterRandomPool.value });
-}, 500);
-nitterRandomPool.addEventListener("input", nitterRandomPoolChange);
-
-const invidiousRandomPoolChange = debounce(() => {
-  browser.storage.sync.set({ invidiousRandomPool: invidiousRandomPool.value });
-}, 500);
-invidiousRandomPool.addEventListener("input", invidiousRandomPoolChange);
-
-const bibliogramRandomPoolChange = debounce(() => {
-  browser.storage.sync.set({
-    bibliogramRandomPool: bibliogramRandomPool.value,
-  });
-}, 500);
-bibliogramRandomPool.addEventListener("input", bibliogramRandomPoolChange);
 
 theme.addEventListener("change", (event) => {
   const value = event.target.options[theme.selectedIndex].value;
