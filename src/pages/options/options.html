@@ -35,26 +35,6 @@
 
     <div id="general" class="tabcontent">
       <section class="settings-block">
-        <table class="option" aria-label="Toggle Nitter redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableNitter__">Nitter Redirects</h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-nitter"
-                  type="checkbox"
-                  checked
-                />&nbsp;
-                <label for="disable-nitter" class="checkbox-label"></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
         <table class="option" aria-label="Toggle Invidious redirects">
           <tbody>
             <tr>
@@ -77,144 +57,6 @@
         </table>
       </section>
       <section class="settings-block">
-        <table class="option" aria-label="Toggle Bibliogram redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableBibliogram__">
-                  Bibliogram Redirects
-                </h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-bibliogram"
-                  type="checkbox"
-                  checked
-                />&nbsp;
-                <label for="disable-bibliogram" class="checkbox-label"> </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
-        <table class="option" aria-label="Toggle OpenStreetMap redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableOsm__">
-                  OpenStreetMap Redirects
-                </h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-osm"
-                  type="checkbox"
-                  checked
-                />&nbsp;
-                <label for="disable-osm" class="checkbox-label"> </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
-        <table class="option" aria-label="Toggle Reddit redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableReddit__">
-                  Reddit Redirects
-                </h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-reddit"
-                  type="checkbox"
-                  checked
-                />&nbsp;
-                <label for="disable-reddit" class="checkbox-label"> </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-       <section class="settings-block">
-        <table class="option" aria-label="Toggle Search Engine redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableSearchEngine__">
-                  Search Engine Redirects
-                </h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-search-engine"
-                  type="checkbox"
-                  checked
-                />&nbsp;
-                <label for="disable-search-engine" class="checkbox-label"> </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
-        <table class="option" aria-label="Toggle SimplyTranslate redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableSimplyTranslate__">SimplyTranslate Redirects</h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-simply-translate"
-                  type="checkbox"
-                />&nbsp;
-                <label for="disable-simply-translate" class="checkbox-label"></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
-        <table class="option" aria-label="Toggle Wikipedia redirects">
-          <tbody>
-            <tr>
-              <td>
-                <h1 data-localise="__MSG_disableWikipedia__" class="new-badge" data-new-badge>Wikipedia Redirects</h1>
-              </td>
-              <td>
-                <input
-                  aria-hidden="true"
-                  id="disable-wikipedia"
-                  type="checkbox"
-                />&nbsp;
-                <label for="disable-wikipedia" class="checkbox-label"></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_nitterInstance__">Nitter Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="nitter-instance"
-            type="url"
-            name="nitter-instance"
-            data-localise-placeholder="__MSG_randomInstancePlaceholder__"
-            placeholder="Random instance (none selected)"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
         <h1 data-localise="__MSG_invidiousInstance__">Invidious Instance</h1>
         <div class="autocomplete">
           <input
@@ -222,68 +64,6 @@
             type="url"
             data-localise-placeholder="__MSG_randomInstancePlaceholder__"
             placeholder="Random instance (none selected)"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_bibliogramInstance__">Bibliogram Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="bibliogram-instance"
-            type="url"
-            data-localise-placeholder="__MSG_randomInstancePlaceholder__"
-            placeholder="Random instance (none selected)"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_osmInstance__">OpenStreetMap Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="osm-instance"
-            type="url"
-            placeholder="https://openstreetmap.org"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_redditInstance__">Reddit Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="reddit-instance"
-            type="url"
-            placeholder="https://libredd.it"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_searchEngineInstance__">Search Engine Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="search-engine-instance"
-            type="url"
-            data-localise-placeholder="__MSG_randomInstancePlaceholder__"
-            placeholder="Random instance (none selected)"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_simplyTranslateInstance__">SimplyTranslate Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="simply-translate-instance"
-            type="url"
-            placeholder="https://translate.metalune.xyz"
-          />
-        </div>
-      </section>
-      <section class="settings-block">
-        <h1 data-localise="__MSG_wikipediaInstance__">Wikipedia Instance</h1>
-        <div class="autocomplete">
-          <input
-            id="wikipedia-instance"
-            type="url"
-            placeholder="https://wikiless.org"
           />
         </div>
       </section>
@@ -302,41 +82,6 @@
         Invidious
       </button>
       <div class="collapsible-content">
-        <section class="settings-block">
-          <h1 data-localise="__MSG_invidiousRandomPool__">
-            Invidious random instance pool (comma-separated)
-          </h1>
-          <input
-            id="invidious-random-pool"
-            name="invidious-random-pool"
-            type="text"
-          />
-        </section>
-        <section class="settings-block">
-          <table
-            class="option"
-            aria-label="Redirect YouTube to FreeTube where possible"
-          >
-            <tbody>
-              <tr>
-                <td>
-                  <h1 data-localise="__MSG_useFreeTube__">
-                    Use FreeTube over Invidious when possible
-                  </h1>
-                </td>
-                <td>
-                  <input
-                    aria-hidden="true"
-                    id="use-freetube"
-                    type="checkbox"
-                    checked
-                  />&nbsp;
-                  <label for="use-freetube" class="checkbox-label"> </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
         <section class="settings-block">
           <table
             class="option"
@@ -502,64 +247,6 @@
         </section>
         <hr>
       </div>
-      <button type="button" class="collapsible">
-        Nitter
-      </button>
-      <div class="collapsible-content">
-        <section class="settings-block">
-          <h1 data-localise="__MSG_nitterRandomPool__">
-            Nitter random instance pool (comma-separated)
-          </h1>
-          <input
-            id="nitter-random-pool"
-            name="nitter-random-pool"
-            type="text"
-          />
-        </section>
-        <section class="settings-block">
-          <table
-            class="option"
-            aria-label="Proactively remove Twitter service worker"
-          >
-            <tbody>
-              <tr>
-                <td>
-                  <h1 data-localise="__MSG_removeTwitterSW__">
-                    Proactively remove Twitter service worker
-                  </h1>
-                </td>
-                <td>
-                  <input
-                    aria-hidden="true"
-                    id="remove-twitter-sw"
-                    type="checkbox"
-                    checked
-                  />&nbsp;
-                  <label for="remove-twitter-sw" class="checkbox-label"> </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-        <hr>
-      </div>
-      <button type="button" class="collapsible">
-        Bibliogram
-      </button>
-      <div class="collapsible-content">
-        <section class="settings-block">
-          <h1 data-localise="__MSG_bibliogramRandomPool__">
-            Bibliogram random instance pool (comma-separated)
-          </h1>
-          <input
-            id="bibliogram-random-pool"
-            name="bibliogram-random-pool"
-            type="text"
-          />
-        </section>
-        <hr>
-      </div>
-    </div>
 
     <div id="exceptions" class="tabcontent">
       <section class="settings-block">
