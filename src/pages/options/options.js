@@ -1,62 +1,19 @@
 "use strict";
 
 import commonHelper from "../../assets/javascripts/helpers/common.js";
-import twitterHelper from "../../assets/javascripts/helpers/twitter.js";
 import youtubeHelper from "../../assets/javascripts/helpers/youtube.js";
-import instagramHelper from "../../assets/javascripts/helpers/instagram.js";
-import mapsHelper from "../../assets/javascripts/helpers/google-maps.js";
-import redditHelper from "../../assets/javascripts/helpers/reddit.js";
-import searchHelper from "../../assets/javascripts/helpers/google-search.js";
-import googleTranslateHelper from "../../assets/javascripts/helpers/google-translate.js";
-import wikipediaHelper from "../../assets/javascripts/helpers/wikipedia.js";
 
-const nitterInstances = twitterHelper.redirects;
 const invidiousInstances = youtubeHelper.redirects;
-const bibliogramInstances = instagramHelper.redirects;
-const osmInstances = mapsHelper.redirects;
-const redditInstances = redditHelper.redirects;
-const searchEngineInstances = searchHelper.redirects;
-const simplyTranslateInstances = googleTranslateHelper.redirects;
-const wikipediaInstances = wikipediaHelper.redirects;
 const autocompletes = [
-  { id: "nitter-instance", instances: nitterInstances },
   { id: "invidious-instance", instances: invidiousInstances },
-  { id: "bibliogram-instance", instances: bibliogramInstances },
-  { id: "osm-instance", instances: osmInstances },
-  { id: "reddit-instance", instances: redditInstances },
-  {
-    id: "search-engine-instance",
-    instances: searchEngineInstances.map((instance) => instance.link),
-  },
-  { id: "simply-translate-instance", instances: simplyTranslateInstances },
-  { id: "wikipedia-instance", instances: wikipediaInstances },
 ];
 const domparser = new DOMParser();
 
-let nitterInstance = document.getElementById("nitter-instance");
 let invidiousInstance = document.getElementById("invidious-instance");
-let bibliogramInstance = document.getElementById("bibliogram-instance");
-let osmInstance = document.getElementById("osm-instance");
-let redditInstance = document.getElementById("reddit-instance");
-let searchEngineInstance = document.getElementById("search-engine-instance");
-let simplyTranslateInstance = document.getElementById(
-  "simply-translate-instance"
-);
-let wikipediaInstance = document.getElementById("wikipedia-instance");
-let disableNitter = document.getElementById("disable-nitter");
 let disableInvidious = document.getElementById("disable-invidious");
-let disableBibliogram = document.getElementById("disable-bibliogram");
-let disableOsm = document.getElementById("disable-osm");
-let disableReddit = document.getElementById("disable-reddit");
-let disableSearchEngine = document.getElementById("disable-search-engine");
-let disableSimplyTranslate = document.getElementById(
-  "disable-simply-translate"
-);
-let disableWikipedia = document.getElementById("disable-wikipedia");
 let alwaysProxy = document.getElementById("always-proxy");
 let onlyEmbeddedVideo = document.getElementById("only-embed");
 let videoQuality = document.getElementById("video-quality");
-let removeTwitterSW = document.getElementById("remove-twitter-sw");
 let invidiousDarkMode = document.getElementById("invidious-dark-mode");
 let persistInvidiousPrefs = document.getElementById("persist-invidious-prefs");
 let invidiousVolume = document.getElementById("invidious-volume");
@@ -64,10 +21,6 @@ let invidiousPlayerStyle = document.getElementById("invidious-player-style");
 let invidiousSubtitles = document.getElementById("invidious-subtitles");
 let invidiousAutoplay = document.getElementById("invidious-autoplay");
 let theme = document.getElementById("theme");
-let useFreeTube = document.getElementById("use-freetube");
-let nitterRandomPool = document.getElementById("nitter-random-pool");
-let invidiousRandomPool = document.getElementById("invidious-random-pool");
-let bibliogramRandomPool = document.getElementById("bibliogram-random-pool");
 
 window.browser = window.browser || window.chrome;
 

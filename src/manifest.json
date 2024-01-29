@@ -28,17 +28,6 @@
   "content_scripts": [
     {
       "matches": [
-        "*://twitter.com/*",
-        "*://www.twitter.com/*",
-        "*://mobile.twitter.com/*",
-        "*://pbs.twimg.com/*",
-        "*://video.twimg.com/*"
-      ],
-      "js": ["assets/javascripts/remove-twitter-sw.js"],
-      "run_at": "document_start"
-    },
-    {
-      "matches": [
         "*://invidious.snopyta.org/*",
         "*://invidious.xyz/*",
         "*://invidious.kavin.rocks/*",
